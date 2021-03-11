@@ -1,0 +1,20 @@
+digraph G {
+node [shape=box];
+"world" [label="world"];
+"link1" [label="link1"];
+"link2" [label="link2"];
+"link3" [label="link3"];
+"Outil" [label="Outil"];
+"Outil_Sphere" [label="Outil_Sphere"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"world" -> "joint1" [label="xyz: 0 0 0 \nrpy: 0 -1.5708 3.14159"]
+"joint1" -> "link1"
+"link1" -> "joint2" [label="xyz: 0 0 1 \nrpy: 0 -0 0"]
+"joint2" -> "link2"
+"link2" -> "joint3" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"joint3" -> "link3"
+"link3" -> "Joint_Outil" [label="xyz: 0 0 0.25 \nrpy: 0 -0 0"]
+"Joint_Outil" -> "Outil"
+"link3" -> "Joint_Outil_Sphere" [label="xyz: 0 0 0.5 \nrpy: 0 -0 0"]
+"Joint_Outil_Sphere" -> "Outil_Sphere"
+}

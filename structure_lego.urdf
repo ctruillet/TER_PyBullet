@@ -1,0 +1,116 @@
+<robot name="structure_lego">
+    <link name="world"/>
+	
+	<link name="link1">
+        <visual>
+            <origin xyz="9.32 0 0" rpy="0 -1.5707963267948966 0" />
+            <geometry>
+                <cylinder radius="1" length="19.65"/>
+            </geometry>
+            <material name="Red">
+                <color rgba="1 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="9.32 0 0" rpy="0 -1.5707963267948966 0" />
+            <geometry>
+                <cylinder radius="1" length="19.65"/>
+            </geometry>
+        </collision>
+    </link>
+	
+    <link name="link2">
+        <visual>
+            <origin xyz="0 0 5" rpy="0 0 1" />
+            <geometry>
+                <cylinder radius="1" length="12.3"/>
+            </geometry>
+            <material name="Green">
+                <color rgba="0 1 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 5" rpy="0 0 1" />
+            <geometry>
+                <cylinder radius="1" length="12.3"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link3">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.57 0 0" />
+            <geometry>
+				<cylinder radius="0.5" length="3"/>
+            </geometry>
+            <material name="Blue">
+                <color rgba="0 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="1.57 0 0" />
+            <geometry>
+                <cylinder radius="1" length="3"/>
+            </geometry>
+        </collision>
+    </link>
+	
+	<link name="Outil">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+				<cylinder radius="0.5" length="13"/>
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 1.0"/>
+            </material>
+        </visual>
+    </link>
+	
+	<link name="Outil_Sphere">
+        <visual>
+			<geometry>
+                <sphere radius="0.7"/>
+            </geometry>
+			<material name="Black">
+                <color rgba="0 0 0 1.0"/>
+            </material>
+        </visual>
+    </link>
+	
+	
+
+    <joint name="joint1" type="continuous">
+        <axis xyz="1 0 0"/>
+        <parent link="world"/>
+        <child link="link1"/>
+        <origin xyz="0 0 0" rpy="3.141592653589793 -1.5707963267948966 0" />
+    </joint>
+	
+	<joint name="joint2" type="continuous">
+        <axis xyz="0 0 1"/>
+        <parent link="link1"/>
+        <child link="link2"/>
+        <origin xyz="19.4 0 1" rpy="0 0 0" />
+    </joint>
+	
+    <joint name="joint3" type="continuous">
+        <axis xyz="0 1 0"/>
+        <parent link="link2"/>
+        <child link="link3"/>
+        <origin xyz="0 0 11.15" rpy="1.5707 1.5707963267948966 0" />
+    </joint>
+
+    <joint name="Joint_Outil" type="fixed">
+        <parent link="link3"/>
+        <child link="Outil"/>
+        <origin xyz="0 0 6.5" rpy="0 0 0" />
+    </joint>
+	
+	<joint name="Joint_Outil_Sphere" type="fixed">
+        <parent link="link3"/>
+        <child link="Outil_Sphere"/>
+        <origin xyz="0 0 13" rpy="0 0 0" />
+    </joint>
+	
+</robot>

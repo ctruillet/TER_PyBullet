@@ -1,11 +1,13 @@
 import pybullet as p
-import time
 import pybullet_data
 from math import pi
 import time
+import numpy as np
 from numpy import cos, sin, sqrt, array, absolute, argmin, arctan2
 
 if __name__ == '__main__':
+    ptCible = [-10.37, -10.05, 30.79]
+
     physicsClient = p.connect(p.GUI)  # or p.DIRECT for non-graphical version
     p.setAdditionalSearchPath(pybullet_data.getDataPath())  # optionally
     p.setGravity(0, 0, -9.81)
@@ -27,6 +29,9 @@ if __name__ == '__main__':
     q3ReelDisplay = p.addUserDebugText("q3 = 0", [0, 0, 2], [255, 0, 0], parentObjectUniqueId=structure,
                                        parentLinkIndex=2)
 
+    positionOT = np.around(p.getLinkState(structure, 4)[0], 2)
+    OTDisplay = p.addUserDebugText("OT", positionOT, textColorRGB=[0, 0, 0])
+
     # Parametres
     q1ParamSlider = p.addUserDebugParameter("q1", -pi, pi, 0)
     q2ParamSlider = p.addUserDebugParameter("q2", -pi, pi, 0)
@@ -43,10 +48,23 @@ if __name__ == '__main__':
         q2Param = p.readUserDebugParameter(q2ParamSlider)
         q3Param = p.readUserDebugParameter(q3ParamSlider)
 
+        # Recuperation de la position de l'OT
+        positionOT = np.around(p.getLinkState(structure, 4)[0], 2)
+        OTDisplay = p.addUserDebugText("OT  = " + str(positionOT), p.getLinkState(structure, 4)[0],
+                                       textColorRGB=[255, 0, 0],
+                                       replaceItemUniqueId=OTDisplay)
+
         # Rotation des rotoïdes
-        p.setJointMotorControl2(structure, 0, p.POSITION_CONTROL, targetPosition=q1Param)
-        p.setJointMotorControl2(structure, 1, p.POSITION_CONTROL, targetPosition=q2Param)
-        p.setJointMotorControl2(structure, 2, p.POSITION_CONTROL, targetPosition=q3Param)
+        if time.perf_counter() - t0 < 3:
+            p.setJointMotorControl2(structure, 0, p.POSITION_CONTROL, targetPosition=q1Param)
+            p.setJointMotorControl2(structure, 1, p.POSITION_CONTROL, targetPosition=q2Param)
+            p.setJointMotorControl2(structure, 2, p.POSITION_CONTROL, targetPosition=q3Param)
+
+        else:
+            jointPoses = p.calculateInverseKinematics(structure, 4, ptCible)
+            p.setJointMotorControl2(structure, 0, p.POSITION_CONTROL, targetPosition=jointPoses[0])
+            p.setJointMotorControl2(structure, 1, p.POSITION_CONTROL, targetPosition=jointPoses[1])
+            p.setJointMotorControl2(structure, 2, p.POSITION_CONTROL, targetPosition=jointPoses[2])
 
         # Recuperation des valeurs réels des qi
         q1 = p.getJointState(structure, 0)[0]

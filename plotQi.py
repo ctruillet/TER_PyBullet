@@ -19,9 +19,6 @@ if __name__ == '__main__':
     for line in lines:
         words = line.split()
 
-        for i in range(1, 4):
-            if words[i] == '-0.0':
-                words[i] = '0.0'
         t.append(float(words[0]))
         q1.append(float(words[1]))
         q2.append(float(words[2]))

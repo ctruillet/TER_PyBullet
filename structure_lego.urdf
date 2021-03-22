@@ -16,7 +16,12 @@
             <geometry>
                 <cylinder radius="1" length="19.65"/>
             </geometry>
+			<contact_coefficient mu="0"  resitution="0"  k_p="125"  k_d="10" />
         </collision>
+		<inertial>
+			<mass value="0.572"/>
+			<inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
+		</inertial>
     </link>
 	
     <link name="link2">
@@ -34,7 +39,12 @@
             <geometry>
                 <cylinder radius="1" length="12.3"/>
             </geometry>
+			<contact_coefficient mu="0"  resitution="0"  k_p="125"  k_d="10" />
         </collision>
+		<inertial>
+			<mass value="0.096"/>
+			<inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
+		</inertial>
     </link>
 
     <link name="link3">
@@ -52,7 +62,12 @@
             <geometry>
                 <cylinder radius="1" length="3"/>
             </geometry>
+			<contact_coefficient mu="0"  resitution="0"  k_p="125"  k_d="10" />
         </collision>
+		<inertial>
+			<mass value="0.097"/>
+			<inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
+		</inertial>
     </link>
 	
 	<link name="Outil">
@@ -65,6 +80,11 @@
                 <color rgba="0 0 0 1.0"/>
             </material>
         </visual>
+		<inertial>
+			<mass value="0.011"/>
+			<inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
+		</inertial>
+		
     </link>
 	
 	<link name="Outil_Sphere">
